@@ -23,7 +23,7 @@ jobs:
       branch: ${{ steps.variables.outputs.result.branch }}
     steps:
     - id: variables
-    - name: Script CI variables
+      name: Script CI variables
         uses: actions/github-script@v4
         with:
           script: |
