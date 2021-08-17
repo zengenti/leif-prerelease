@@ -68,9 +68,9 @@ jobs:
       - name: Build the Docker image
         run: |
           echo ${{ env.vars }}
-          echo ${{ env.vars.branch }}
+          echo ${{ env.vars2.branch }}
           docker pull ${{ env.vars.appImage }}:latest || true
-          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.vars.appImage }}\"}" > version.json
+          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"${{ env.vars.branch }}\",\"registryImage\":\"${{ env.vars.appImage }}\"}" > version.json
           docker build --force-rm --cache-from ${{ env.vars.appImage }}:latest -t ${{ env.vars.appImage }}:latest -f docker/build.DockerFile .
           docker push ${{ env.vars.appImage }}:latest
 
