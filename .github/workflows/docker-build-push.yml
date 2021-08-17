@@ -40,7 +40,6 @@ jobs:
         run: |
           echo "${{steps.variables.outputs.result}}"
           echo "${{toJSON(steps.variables.outputs.result)}}"
-          echo ${{steps.variables.outputs.result}} | jq '.appImage'
           echo "${{toJSON(steps.variables.outputs.result).branch}}"
 
   build-and-push:
