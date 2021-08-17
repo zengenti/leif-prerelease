@@ -2,11 +2,11 @@ name: Docker Build and Push
 
 on:
   push:
-    branches: [master]
+    branches: ['**']
     # Publish semver tags as releases.
-    tags: ['v*.*.*']
+    tags: ['release-v*.*.*']
   pull_request:
-    branches: [master]
+    branches: ['**']
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -15,7 +15,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
