@@ -53,9 +53,12 @@ export default [
   {
     path: '/zenInfo',
     exact: true,
+    ssrOnly: true,
     component: Loadable({
       loader: () =>
-        import(/* webpackChunkName: "zeninfo" */ '~/pages/VersionInfo'),
+        import(
+          /* webpackChunkName: "zeninfo" */ '@zengenti/contensis-react-base/util'
+        ).then(module => module.VersionInfo),
       loading: Loading,
     }),
   },
