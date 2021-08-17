@@ -20,7 +20,7 @@ jobs:
     name: Output build variables
     runs-on: ubuntu-latest
     outputs:
-      result: ${{ steps.variables.outputs.result }}
+      result: ${{ fromJSON(steps.variables.outputs.result) }}
     steps:
       - id: variables
         name: Script CI variables
@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "${{steps.variables.outputs.result}}"
           echo "${{toJSON(steps.variables.outputs.result)}}"
-          echo "${{toJSON(steps.variables.outputs.result).appImage}}"
+          echo ${{steps.variables.outputs.result}} | jq '.appImage'
           echo "${{toJSON(steps.variables.outputs.result).branch}}"
 
   build-and-push:
