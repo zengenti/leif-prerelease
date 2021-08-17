@@ -20,8 +20,7 @@ jobs:
     name: Output build variables
     runs-on: ubuntu-latest
     outputs:
-      appImage: ${{ toJSON(steps.variables.outputs.result).appImage }}
-      branch: ${{ toJSON(steps.variables.outputs.result).branch }}
+      result: ${{ steps.variables.outputs.result }}
     steps:
       - id: variables
         name: Script CI variables
@@ -39,6 +38,7 @@ jobs:
             return { branch, appImage, imagePath };
       - name: Get result
         run: |
+          echo "${{steps.variables.outputs.result}}"
           echo "${{toJSON(steps.variables.outputs.result)}}"
           echo "${{toJSON(steps.variables.outputs.result).appImage}}"
           echo "${{toJSON(steps.variables.outputs.result).branch}}"
@@ -52,6 +52,11 @@ jobs:
       packages: write
 
     steps:
+      - name: Set values
+        run: |
+          echo "VARS=${{needs.set-build-vars.outputs.result}}" >> $GITHUB_ENV
+          echo "APP_IMAGE=${{needs.set-build-vars.outputs.result.appImage}}" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -67,10 +72,10 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker pull ${{needs.set-build-vars.outputs.appImage}}:latest || true
-          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{needs.set-build-vars.outputs.appImage}}\"}" > version.json
-          docker build --force-rm --cache-from ${{needs.set-build-vars.outputs.appImage}}:latest -t ${{needs.set-build-vars.outputs.appImage}}:latest -f docker/build.DockerFile .
-          docker push ${{needs.set-build-vars.outputs.appImage}}:latest
+          docker pull ${{ env.APP_IMAGE }}:latest || true
+          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.APP_IMAGE }}\"}" > version.json
+          docker build --force-rm --cache-from ${{ env.APP_IMAGE }}:latest -t ${{ env.APP_IMAGE }}:latest -f docker/build.DockerFile .
+          docker push ${{ env.APP_IMAGE }}:latest
 
       # # Extract metadata (tags, labels) for Docker
       # # https://github.com/docker/metadata-action
