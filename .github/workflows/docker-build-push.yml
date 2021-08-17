@@ -36,11 +36,6 @@ jobs:
             core.exportVariable('GITHUB_BRANCH_SLUG', branch);
             core.exportVariable('APP_IMAGE', appImage);
             return { branch, appImage, imagePath };
-      - name: Get result
-        run: |
-          echo "${{steps.variables.outputs.result}}"
-          echo "${{toJSON(steps.variables.outputs.result)}}"
-          echo "${{toJSON(steps.variables.outputs.result).branch}}"
 
   build-and-push:
     name: Docker build and push
@@ -53,7 +48,7 @@ jobs:
     steps:
       - name: Set values
         run: |
-          echo "VARS=${{needs.set-build-vars.outputs.result}}" >> $GITHUB_ENV
+          echo "VARS=${{fromJSON(needs.set-build-vars.outputs.result)}}" >> $GITHUB_ENV
           echo "APP_IMAGE=${{fromJSON(needs.set-build-vars.outputs.result).appImage}}" >> $GITHUB_ENV
 
       - name: Checkout repository
@@ -71,10 +66,10 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker pull ${{ env.APP_IMAGE }}:latest || true
-          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.APP_IMAGE }}\"}" > version.json
-          docker build --force-rm --cache-from ${{ env.APP_IMAGE }}:latest -t ${{ env.APP_IMAGE }}:latest -f docker/build.DockerFile .
-          docker push ${{ env.APP_IMAGE }}:latest
+          docker pull ${{ env.VARS.APP_IMAGE }}:latest || true
+          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.VARS.APP_IMAGE }}\"}" > version.json
+          docker build --force-rm --cache-from ${{ env.VARS.APP_IMAGE }}:latest -t ${{ env.VARS.APP_IMAGE }}:latest -f docker/build.DockerFile .
+          docker push ${{ env.VARS.APP_IMAGE }}:latest
 
       # # Extract metadata (tags, labels) for Docker
       # # https://github.com/docker/metadata-action
