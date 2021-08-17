@@ -17,13 +17,14 @@ env:
 
 jobs:
   set-build-vars:
+    name: Output build variables
     runs-on: ubuntu-latest
     outputs:
       appImage: ${{ steps.variables.outputs.result.appImage }}
       branch: ${{ steps.variables.outputs.result.branch }}
     steps:
-    - id: variables
-      name: Script CI variables
+      - id: variables
+        name: Script CI variables
         uses: actions/github-script@v4
         with:
           script: |
@@ -38,6 +39,7 @@ jobs:
             return { branch, appImage, imagePath };
 
   build-and-push:
+    name: Docker build and push
     runs-on: ubuntu-latest
     needs: set-build-vars
     permissions:
