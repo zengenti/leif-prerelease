@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: Set values
         run: |
-          echo "VARS=${{fromJSON(needs.set-build-vars.outputs.result)}}" >> $GITHUB_ENV
+          echo "vars=${{fromJSON(needs.set-build-vars.outputs.result)}}" >> $GITHUB_ENV
           echo "APP_IMAGE=${{fromJSON(needs.set-build-vars.outputs.result).appImage}}" >> $GITHUB_ENV
 
       - name: Checkout repository
@@ -66,10 +66,10 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker pull ${{ env.VARS.APP_IMAGE }}:latest || true
-          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.VARS.APP_IMAGE }}\"}" > version.json
-          docker build --force-rm --cache-from ${{ env.VARS.APP_IMAGE }}:latest -t ${{ env.VARS.APP_IMAGE }}:latest -f docker/build.DockerFile .
-          docker push ${{ env.VARS.APP_IMAGE }}:latest
+          docker pull ${{ env.vars.appImage }}:latest || true
+          echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.vars.appImage }}\"}" > version.json
+          docker build --force-rm --cache-from ${{ env.vars.appImage }}:latest -t ${{ env.vars.appImage }}:latest -f docker/build.DockerFile .
+          docker push ${{ env.vars.appImage }}:latest
 
       # # Extract metadata (tags, labels) for Docker
       # # https://github.com/docker/metadata-action
