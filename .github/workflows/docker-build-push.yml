@@ -50,7 +50,7 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker pull $APP_IMAGE:latest
+          docker pull $APP_IMAGE:latest || true
           echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"$APP_IMAGE\"}" > version.json
           docker build --force-rm --cache-from $APP_IMAGE:latest -t $APP_IMAGE:latest -f docker/build.DockerFile .
           docker push $APP_IMAGE:latest
