@@ -22,8 +22,8 @@ jobs:
       appImage: ${{ steps.variables.outputs.result.appImage }}
       branch: ${{ steps.variables.outputs.result.branch }}
     steps:
+    - id: variables
     - name: Script CI variables
-        id: variables
         uses: actions/github-script@v4
         with:
           script: |
