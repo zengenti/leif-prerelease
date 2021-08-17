@@ -20,7 +20,7 @@ jobs:
     name: Output build variables
     runs-on: ubuntu-latest
     outputs:
-      result: ${{ fromJSON(steps.variables.outputs.result) }}
+      result: ${{ steps.variables.outputs.result }}
     steps:
       - id: variables
         name: Script CI variables
@@ -54,7 +54,7 @@ jobs:
       - name: Set values
         run: |
           echo "VARS=${{needs.set-build-vars.outputs.result}}" >> $GITHUB_ENV
-          echo "APP_IMAGE=${{needs.set-build-vars.outputs.result.appImage}}" >> $GITHUB_ENV
+          echo "APP_IMAGE=${{fromJSON(needs.set-build-vars.outputs.result).appImage}}" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v2
