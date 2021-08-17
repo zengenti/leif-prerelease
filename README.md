@@ -1,4 +1,4 @@
-# Zengenti Starter Project :boom:  
+# Zengenti Starter Project :boom:
 
 # Getting started
 
@@ -9,7 +9,6 @@
 - Define routes in your application, there are 'Static routes' and 'Content type mappings' which tell the application what pages are to be loaded and when certain routes / content type entries are loaded
 - Import components using the import aliases e.g. `~/pages/MyPage` avoid importing components like `/src/app/pages/MyPage` or `../../../pages/MyPage`
 
-
 ## Key scripts :vertical_traffic_light: :page_with_curl:
 
 - `npm install` - install dependencies so we can use the application
@@ -19,14 +18,13 @@
 - `npm run server` - start the application server same as we would as if it were deployed in production
 - `npm run build:server` - build the application and start the server-side application from source code (allowing us to connect a debugger and stop on code that is executed server-side)
 
-
 # Releasing to live
 
 When you are ready to release your code it is best to change your version number and tag the release with the version number so it is easy to keep track of each release rather than date generated tags. The suggested workflow for releasing is as follows:
 
 - Run `npm version major || minor || patch` see: [https://docs.npmjs.com/cli/version](https://docs.npmjs.com/cli/version)
 - This will generate a new empty commit, push this and wait for the build to pass.
-- Once the build has passed in gitlab, run `git tag release-{version-no}` 
+- Once the build has passed in gitlab, run `git tag release-{version-no}`
 - Then run `git push origin release-{version-no}`
 
 # Domains
@@ -39,7 +37,6 @@ When you are ready to release your code it is best to change your version number
 | ---------- | ------- | --------- | -------- | ----------- |
 | Production | website | Published | `master` | `release-*` |
 
-
 ### [dev.live.{alias}.contensis.cloud](http://dev.live.{alias}.contensis.cloud)
 
 | CMS        | Project | Data      | Branch    | Version  |
@@ -51,7 +48,6 @@ When you are ready to release your code it is best to change your version number
 | CMS        | Project | Data  | Branch   | Version     |
 | ---------- | ------- | ----- | -------- | ----------- |
 | Production | website | Draft | `master` | `release-*` |
-
 
 ### [dev.preview.{alias}.contensis.cloud](http://dev.preview.{alias}.contensis.cloud)
 
@@ -75,7 +71,6 @@ When you are ready to release your code it is best to change your version number
 | ---------- | ------- | --------- | -------- | ----------- |
 | Production | website | Published | `master` | `release-*` |
 
-
 ### [dev.live.{alias}-dev.contensis.cloud](http://dev.live.{alias}-dev.contensis.cloud)
 
 | CMS        | Project | Data      | Branch    | Version  |
@@ -87,7 +82,6 @@ When you are ready to release your code it is best to change your version number
 | CMS        | Project | Data  | Branch   | Version     |
 | ---------- | ------- | ----- | -------- | ----------- |
 | Production | website | Draft | `master` | `release-*` |
-
 
 ### [dev.preview.{alias}-dev.contensis.cloud](http://dev.preview.{alias}-dev.contensis.cloud)
 
