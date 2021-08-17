@@ -38,9 +38,6 @@ WORKDIR /usr/src/app
 COPY package.json .
 COPY yarn.lock .
 COPY --from=builder /usr/src/app/patches /usr/src/app/patches
-# COPY --from=builder /usr/src/app/node_modules/zengenti-isomorphic-base /usr/src/app/node_modules/zengenti-isomorphic-base
-RUN apk add git
-COPY --from=builder /usr/src/app/node_modules/zengenti-search-package /usr/src/app/node_modules/zengenti-search-package
 RUN yarn install --production --check-files --link-duplicates --loglevel error && yarn cache clean
 RUN yarn run postinstall
 COPY --from=builder /usr/src/app/dist /usr/src/app/dist

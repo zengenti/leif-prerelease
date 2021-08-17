@@ -3417,10 +3417,10 @@
   resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
   integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
 
-"@zengenti/contensis-react-base@^2.1.1":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@zengenti/contensis-react-base/-/contensis-react-base-2.2.3.tgz#317a4e7290d7e78504ea3acac34879fcb7674608"
-  integrity sha512-QGIhXzxdLKOmJK0qJ7ZhriNCxmOI9X2OqpLZQccVUNUVisARFuKiJd/RTNs93kG3V1lW/QjMM718ehai8ozGDw==
+"@zengenti/contensis-react-base@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@zengenti/contensis-react-base/-/contensis-react-base-2.3.0.tgz#a3a5448267548b5a6f856a8632d76f9aece08fc1"
+  integrity sha512-ByQweFn5B3i1o65QWJCHLQy8hAoaNZTopL1iWTqlSV68KEzk0mldmNKSj20vWMvGVesfNYPoyljcWYgOAXPFSQ==
   dependencies:
     "@hot-loader/react-dom" "16.11.0"
     app-root-path "^3.0.0"
@@ -3437,7 +3437,7 @@
     immutable "^4.0.0-rc.12"
     isomorphic-fetch "^3.0.0"
     js-cookie "^2.2.1"
-    jsonpath-mapper "^1.1.0-beta.0"
+    jsonpath-mapper "^1.1.0"
     loglevel "^1.6.3"
     minify-css-string "1.0.0"
     oidc-client "^1.5.4"
@@ -10986,7 +10986,7 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
-jsonpath-mapper@^1.1.0, jsonpath-mapper@^1.1.0-beta.0:
+jsonpath-mapper@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/jsonpath-mapper/-/jsonpath-mapper-1.1.0.tgz#df1b9cfb8ec3ba8fa660d7a3bd6c64389d07b7ff"
   integrity sha512-hqtLxx4SnvJylE1e/QfYIRLONK12geYSnJ70AAJWYB2JS3eViOrPAeaO2chHDCalo+8bBEAGtR1ONVpDy7nxOA==
@@ -17090,15 +17090,6 @@ urix@^0.1.0:
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
-url-loader@^2.0.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-2.3.0.tgz#e0e2ef658f003efb8ca41b0f3ffbf76bab88658b"
-  integrity sha512-goSdg8VY+7nPZKUEChZSEtW5gjbS66USIGCeSJ1OVOJ7Yfuh/36YxCwMi5HVEJh6mqUYOoy3NJ0vlOMrWsSHog==
-  dependencies:
-    loader-utils "^1.2.3"
-    mime "^2.4.4"
-    schema-utils "^2.5.0"
-
 url-loader@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-4.1.1.tgz#28505e905cae158cf07c92ca622d7f237e70a4e2"
@@ -18036,20 +18027,6 @@ zengenti-buildstartup-package@^0.0.13:
   integrity sha512-qbJyhHqCZbCFvv3TCCwBXJ34AbJBQC28jN+L4bsQ3I4KbCoMe5UHkKsUqFDaSFXu8CyFLyx5Ws8iWntlsOw5Ig==
   dependencies:
     custom-env "^1.0.2"
-
-"zengenti-search-package@git+https://gitlab+deploy-token-5:XKRGRE1p2PrFAxnWwLNz@gitlab.zengenti.com/zengenti-packages/search.git#typescript-conversion":
-  version "1.0.0"
-  resolved "git+https://gitlab+deploy-token-5:XKRGRE1p2PrFAxnWwLNz@gitlab.zengenti.com/zengenti-packages/search.git#c52c42a70a1bee14169af7a208f133bc9164b2f1"
-  dependencies:
-    custom-env "^1.0.2"
-    file-loader "^4.0.0"
-    jsonpath-mapper "^1.1.0"
-    loglevel "^1.6.3"
-    minify-css-string "1.0.0"
-    patch-package "^6.2.0"
-    react "16.11.0"
-    react-dom "16.11.0"
-    url-loader "^2.0.0"
 
 zwitch@^1.0.0:
   version "1.0.5"
