@@ -20,8 +20,8 @@ jobs:
     name: Output build variables
     runs-on: ubuntu-latest
     outputs:
-      appImage: ${{ steps.variables.outputs.result.appImage }}
-      branch: ${{ steps.variables.outputs.result.branch }}
+      appImage: ${{ toJSON(steps.variables.outputs.result).appImage }}
+      branch: ${{ toJSON(steps.variables.outputs.result).branch }}
     steps:
       - id: variables
         name: Script CI variables
@@ -39,9 +39,9 @@ jobs:
             return { branch, appImage, imagePath };
       - name: Get result
         run: |
-          echo "${{steps.variables.outputs.result}}"
-          echo "${{steps.variables.outputs.result.appImage}}"
-          echo "${{steps.variables.outputs.result.branch}}"
+          echo "${{toJSON(steps.variables.outputs.result)}}"
+          echo "${{toJSON(steps.variables.outputs.result).appImage}}"
+          echo "${{toJSON(steps.variables.outputs.result).branch}}"
 
   build-and-push:
     name: Docker build and push
