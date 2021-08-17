@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.variables.outputs.result }}
+      appImage: ${{ fromJSON(steps.variables.outputs.result).appImage }}
     steps:
       - id: variables
         name: Script CI variables
@@ -49,7 +50,7 @@ jobs:
       - name: Set values
         run: |
           echo "vars=${{fromJSON(needs.set-build-vars.outputs.result)}}" >> $GITHUB_ENV
-          echo "vars2=${{needs.set-build-vars.outputs.result}}" >> $GITHUB_ENV
+          echo "appImage=${{needs.set-build-vars.outputs.appImage}}" >> $GITHUB_ENV
           echo "APP_IMAGE=${{fromJSON(needs.set-build-vars.outputs.result).appImage}}" >> $GITHUB_ENV
 
       - name: Checkout repository
@@ -69,7 +70,7 @@ jobs:
         run: |
           echo ${{ env.vars }}
           echo ${{ env.vars2.branch }}
-          docker pull ${{ env.vars.appImage }}:latest || true
+          docker pull ${{ env.appImage }}:latest || true
           echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"${{ env.vars.branch }}\",\"registryImage\":\"${{ env.vars.appImage }}\"}" > version.json
           docker build --force-rm --cache-from ${{ env.vars.appImage }}:latest -t ${{ env.vars.appImage }}:latest -f docker/build.DockerFile .
           docker push ${{ env.vars.appImage }}:latest
