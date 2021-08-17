@@ -49,6 +49,7 @@ jobs:
       - name: Set values
         run: |
           echo "vars=${{fromJSON(needs.set-build-vars.outputs.result)}}" >> $GITHUB_ENV
+          echo "vars2=${{needs.set-build-vars.outputs.result}}" >> $GITHUB_ENV
           echo "APP_IMAGE=${{fromJSON(needs.set-build-vars.outputs.result).appImage}}" >> $GITHUB_ENV
 
       - name: Checkout repository
@@ -66,6 +67,9 @@ jobs:
 
       - name: Build the Docker image
         run: |
+          echo ${{ env.vars }}
+          echo ${{ env.vars.branch }}
+          echo ${{ fromJSON(env.vars2).branch }}
           docker pull ${{ env.vars.appImage }}:latest || true
           echo "{\"commitRef\":\"${{ github.sha }}\",\"pipelineIID\":\"null\",\"pipelineUrl\":\"${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}\",\"buildNo\":\"$CI_PIPELINE_ID\",\"branchName\":\"$CI_COMMIT_REF_NAME\",\"registryImage\":\"${{ env.vars.appImage }}\"}" > version.json
           docker build --force-rm --cache-from ${{ env.vars.appImage }}:latest -t ${{ env.vars.appImage }}:latest -f docker/build.DockerFile .
